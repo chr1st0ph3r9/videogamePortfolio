@@ -6,7 +6,7 @@ import { createContext } from 'react';
 export default function Header() {
   return (
     <motion.header 
-      className="fixed w-full bg-background/80 backdrop-blur-sm z-50"
+      className="w-full bg-background/80 backdrop-blur-sm z-50"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
