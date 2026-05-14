@@ -1,51 +1,56 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 const CustomCursor: React.FC = () => {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-    const [isPointer, setIsPointer] = useState(false);
-
-    const onMouseMove = (e: MouseEvent) => {
-        setPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const onMouseOver = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        setIsPointer(window.getComputedStyle(target).cursor === 'pointer');
-    };
+    const [pos, setPos] = useState({ x: -100, y: -100 })
+    const [isPointer, setIsPointer] = useState(false)
 
     useEffect(() => {
-        window.addEventListener('mousemove', onMouseMove);
-        window.addEventListener('mouseover', onMouseOver);
-
+        const onMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY })
+        const onOver = (e: MouseEvent) => {
+            const el = e.target as HTMLElement
+            setIsPointer(window.getComputedStyle(el).cursor === 'pointer')
+        }
+        window.addEventListener('mousemove', onMove)
+        window.addEventListener('mouseover', onOver)
         return () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseover', onMouseOver);
-        };
-    }, []);
+            window.removeEventListener('mousemove', onMove)
+            window.removeEventListener('mouseover', onOver)
+        }
+    }, [])
 
     return (
         <>
+            {/* Dot */}
             <div
-                className="fixed pointer-events-none z-50 transition-transform duration-100 ease-out"
+                className="fixed pointer-events-none z-50"
                 style={{
-                    left: `${position.x}px`,
-                    top: `${position.y}px`,
-                    transform: `translate(-50%, -50%) scale(${isPointer ? 1.5 : 1})`,
+                    left: pos.x,
+                    top: pos.y,
+                    transform: `translate(-50%, -50%) scale(${isPointer ? 1.6 : 1})`,
+                    transition: 'transform 0.15s ease',
                 }}
             >
-                <div className="relative">
-                    <div className="absolute bg-[#7BED9D] rounded-full w-3 h-3 -translate-x-1/2 -translate-y-1/2" />
-                    <div className="absolute bg-[#B17BED] rounded-full w-5 h-5 -translate-x-1/2 -translate-y-1/2 opacity-30 animate-ping" />
-                </div>
+                <div className="w-3 h-3 rounded-full bg-coral" />
             </div>
-            <style jsx global>{`
-        body {
-          cursor: none;
-        }
-      `}</style>
+            {/* Ring */}
+            <div
+                className="fixed pointer-events-none z-50"
+                style={{
+                    left: pos.x,
+                    top: pos.y,
+                    transform: `translate(-50%, -50%) scale(${isPointer ? 1.6 : 1})`,
+                    transition: 'left 0.08s ease, top 0.08s ease, transform 0.2s ease',
+                }}
+            >
+                <div
+                    className="w-8 h-8 rounded-full border border-coral/40"
+                    style={{ transition: 'transform 0.2s ease' }}
+                />
+            </div>
+            <style jsx global>{`body { cursor: none; }`}</style>
         </>
-    );
-};
+    )
+}
 
-export default CustomCursor;
+export default CustomCursor

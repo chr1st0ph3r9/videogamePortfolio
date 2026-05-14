@@ -2,19 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --coral: #FF6B5B;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+    background-color: #0a0a0a;
+    color: #f0f0f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgba(255, 107, 91, 0.3);
+    color: #fff;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #FF6B5B;
+    border-radius: 2px;
   }
 }
