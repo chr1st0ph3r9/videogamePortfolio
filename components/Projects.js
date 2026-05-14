@@ -4,12 +4,13 @@ import Image from 'next/image'
 
 const projects = [
     {
-        title: 'FPS Test',
-        description: 'Unity physics prototype — first-person mechanics, projectile physics and item interactions.',
-        link: 'https://christopher-hayling.itch.io/fps-test',
-        linkLabel: 'itch.io',
-        tags: ['Unity', 'C#', 'Physics'],
-        image: '/images/games/fps-test.jpg',
+        title: 'Burbujelia',
+        description: 'Point-and-click potion shop game made for Global Game Jam 2025. Brew potions to help quirky clients — made with Godot.',
+        link: null,
+        linkLabel: 'Global Game Jam 2025',
+        tags: ['Godot', 'GDScript', 'Point & Click', 'Game Jam'],
+        image: '/images/games/burbujelia.jpg',
+        featured: true,
     },
     {
         title: 'GloboBallon',
@@ -37,11 +38,19 @@ const projects = [
     },
     {
         title: 'Oficina Pesadilla',
-        description: '48h game jam entry — collect pages, deliver to the printer, fight off monsters with a mouse-aimed sword.',
+        description: '48h game jam — collect pages, deliver to the printer, fight off monsters with a mouse-aimed sword. Pixel art top-down.',
         link: null,
         linkLabel: 'Game Jam',
-        tags: ['Unity', 'C#', 'Game Jam'],
+        tags: ['Unity', 'C#', 'Pixel Art', 'Game Jam'],
         image: null,
+    },
+    {
+        title: 'FPS Test',
+        description: 'Unity physics prototype — first-person mechanics, projectile physics and item interactions.',
+        link: 'https://christopher-hayling.itch.io/fps-test',
+        linkLabel: 'itch.io',
+        tags: ['Unity', 'C#', 'Physics'],
+        image: '/images/games/fps-test.jpg',
     },
 ]
 
@@ -55,7 +64,6 @@ function ProjectCard({ project, index }) {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: index * 0.07 }}
         >
-            {/* Background image or placeholder */}
             {project.image ? (
                 <Image
                     src={project.image}
@@ -66,47 +74,34 @@ function ProjectCard({ project, index }) {
                 />
             ) : (
                 <div className="absolute inset-0 bg-gradient-to-br from-surface-2 via-surface to-black">
-                    {/* Subtle grid pattern for placeholder */}
                     <div className="absolute inset-0" style={{
                         backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
                         backgroundSize: '32px 32px',
                     }} />
-                    {/* Coral accent dot */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-10">
                         <div className="w-24 h-24 rounded-full border-2 border-coral" />
                     </div>
                 </div>
             )}
 
-            {/* Always-on dark gradient from bottom */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
 
-            {/* Rest state: just title at bottom */}
+            {/* Rest state: title only */}
             <div className="absolute inset-x-0 bottom-0 p-5 transition-opacity duration-200 group-hover:opacity-0">
                 <h3 className="font-display font-bold text-lg text-white">{project.title}</h3>
             </div>
 
-            {/* Hover panel: slides up from bottom */}
+            {/* Hover panel */}
             <div className="absolute inset-x-0 bottom-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out bg-black/80 backdrop-blur-sm p-5">
-                {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-3">
                     {project.tags.map(tag => (
-                        <span
-                            key={tag}
-                            className="text-[11px] px-2.5 py-0.5 rounded-full border border-white/15 text-white/60"
-                        >
+                        <span key={tag} className="text-[11px] px-2.5 py-0.5 rounded-full border border-white/15 text-white/60">
                             {tag}
                         </span>
                     ))}
                 </div>
-
-                {/* Title */}
                 <h3 className="font-display font-bold text-lg text-white mb-1.5">{project.title}</h3>
-
-                {/* Description */}
                 <p className="text-xs text-white/50 leading-relaxed mb-3 line-clamp-2">{project.description}</p>
-
-                {/* Link */}
                 {project.link ? (
                     <a
                         href={project.link}
@@ -132,7 +127,6 @@ export default function Projects() {
     return (
         <section id="projects" className="py-24 px-6 md:px-16">
             <div className="max-w-6xl mx-auto">
-                {/* Section header */}
                 <motion.div
                     className="mb-14"
                     initial={{ opacity: 0, y: 20 }}
@@ -144,7 +138,6 @@ export default function Projects() {
                     <h2 className="font-display font-bold text-4xl md:text-5xl">Projects</h2>
                 </motion.div>
 
-                {/* Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {projects.map((project, i) => (
                         <ProjectCard key={project.title} project={project} index={i} />

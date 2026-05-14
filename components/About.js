@@ -1,7 +1,7 @@
 "use client"
 import { motion } from 'framer-motion'
 import { FaUnity, FaCode } from 'react-icons/fa'
-import { SiUnrealengine, SiCsharp, SiCplusplus, SiBlender } from 'react-icons/si'
+import { SiUnrealengine, SiCsharp, SiCplusplus, SiBlender, SiGodotengine } from 'react-icons/si'
 import Image from 'next/image'
 
 const skills = [
@@ -11,13 +11,14 @@ const skills = [
     { name: 'C++',           icon: <SiCplusplus /> },
     { name: 'Game Design',   icon: <FaCode /> },
     { name: 'Blender',       icon: <SiBlender /> },
+    { name: 'Godot',         icon: <SiGodotengine /> },
 ]
 
 const stats = [
-    { num: '5',   label: 'Games built' },
-    { num: '2',   label: 'Game engines' },
+    { num: '6',   label: 'Games built' },
+    { num: '3',   label: 'Game engines' },
     { num: '2+',  label: 'Years developing' },
-    { num: '1',   label: 'Game jam' },
+    { num: '2',   label: 'Game jams' },
 ]
 
 export default function About() {

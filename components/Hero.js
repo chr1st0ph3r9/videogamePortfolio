@@ -21,8 +21,8 @@ function WireframeSphere() {
 }
 
 const stats = [
-    { num: '5',      label: 'Games' },
-    { num: '2',      label: 'Engines' },
+    { num: '6',      label: 'Games' },
+    { num: '3',      label: 'Engines' },
     { num: 'C# C++', label: 'Languages' },
 ]
 
