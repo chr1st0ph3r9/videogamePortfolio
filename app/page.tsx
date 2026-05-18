@@ -1,23 +1,23 @@
+import Header from '../components/Header'
 import Hero from '../components/Hero'
 import Projects from '../components/Projects'
 import About from '../components/About'
 import Contact from '../components/Contact'
-import AnimatedBackground from '../components/AnimatedBackground'
+import GridBackground from '../components/AnimatedBackground'
+import SocialSidebar from '../components/SocialSidebar'
 import CustomCursor from '../components/CustomCursor'
 
 export default function Home() {
     return (
-        <main className="relative min-h-screen">
-            <AnimatedBackground />
+        <main className="min-h-screen bg-background text-white">
+            <GridBackground />
             <CustomCursor />
-            <div className="absolute inset-0 z-10">
-                <div className="container mx-auto px-4">
-                    <Hero />
-                    <Projects />
-                    <About />
-                    <Contact />
-                </div>
-            </div>
+            <Header />
+            <SocialSidebar />
+            <Hero />
+            <Projects />
+            <About />
+            <Contact />
         </main>
-    );
+    )
 }
