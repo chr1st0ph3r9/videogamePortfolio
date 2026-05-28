@@ -1,6 +1,7 @@
 "use client"
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useRef, useState } from 'react'
 
 const projects = [
     {
@@ -10,6 +11,7 @@ const projects = [
         linkLabel: 'Global Game Jam 2025',
         tags: ['Godot', 'GDScript', 'Point & Click', 'Game Jam'],
         image: '/images/games/burbujelia.jpg',
+        video: '/videos/games/burbujelia.mp4',
         featured: true,
     },
     {
@@ -19,6 +21,7 @@ const projects = [
         linkLabel: 'Play',
         tags: ['Unity', 'C#', 'Web'],
         image: '/images/games/globoballon.jpg',
+        video: '/videos/games/globoballon.mp4',
     },
     {
         title: 'DriftCity',
@@ -27,6 +30,7 @@ const projects = [
         linkLabel: 'Play',
         tags: ['Web', 'JavaScript', 'Endless Runner'],
         image: '/images/games/driftcity.jpg',
+        video: '/videos/games/driftcity.mp4',
     },
     {
         title: 'Codex Glauks',
@@ -35,6 +39,7 @@ const projects = [
         linkLabel: 'Coming Soon',
         tags: ['Unity', 'C#', 'Action-Adventure'],
         image: null,
+        video: null,
     },
     {
         title: 'Oficina Pesadilla',
@@ -43,6 +48,7 @@ const projects = [
         linkLabel: 'Game Jam',
         tags: ['Unity', 'C#', 'Pixel Art', 'Game Jam'],
         image: null,
+        video: null,
     },
     {
         title: 'FPS Test',
@@ -51,10 +57,27 @@ const projects = [
         linkLabel: 'itch.io',
         tags: ['Unity', 'C#', 'Physics'],
         image: '/images/games/fps-test.jpg',
+        video: '/videos/games/fps-test.mp4',
     },
 ]
 
 function ProjectCard({ project, index }) {
+    const videoRef = useRef(null)
+    const [videoReady, setVideoReady] = useState(false)
+
+    const handleMouseEnter = () => {
+        if (videoRef.current) {
+            videoRef.current.currentTime = 0
+            videoRef.current.play().catch(() => {})
+        }
+    }
+
+    const handleMouseLeave = () => {
+        if (videoRef.current) {
+            videoRef.current.pause()
+        }
+    }
+
     return (
         <motion.div
             className="group relative rounded-2xl overflow-hidden bg-surface cursor-pointer"
@@ -63,13 +86,16 @@ function ProjectCard({ project, index }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: index * 0.07 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
+            {/* Static image (always visible) */}
             {project.image ? (
                 <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    className={`object-cover transition-opacity duration-300 ${videoReady ? 'group-hover:opacity-0' : ''}`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
             ) : (
@@ -82,6 +108,22 @@ function ProjectCard({ project, index }) {
                         <div className="w-24 h-24 rounded-full border-2 border-coral" />
                     </div>
                 </div>
+            )}
+
+            {/* Video (plays on hover, fades in over image) */}
+            {project.video && (
+                <video
+                    ref={videoRef}
+                    src={project.video}
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                    onCanPlay={() => setVideoReady(true)}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                        videoReady ? 'opacity-0 group-hover:opacity-100' : 'opacity-0'
+                    }`}
+                />
             )}
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
